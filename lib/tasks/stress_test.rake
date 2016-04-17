@@ -7,10 +7,13 @@ namespace :stress_test do
       puts "This task is unsafe in production." and return
     end
 
-    size = args[:size]
-    size ||= 100
+    args.with_defaults(:size => 100)
 
-    (1..size).each {|n|
+    if args[:size].to_i < 1
+      puts "Size must be 1 or more." and return
+    end
+
+    (1..args[:size].to_i).each {|n|
       protocol = ['', 'http://', 'https://'].sample
       name = ('a'..'z').to_a.sample(rand(3..15)).join
       tld = ['it', 'com', 'org', 'fr', 'es', 'ca', 'biz', 'gov', 'net', '.us'].sample
