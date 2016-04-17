@@ -27,6 +27,9 @@ module Shortify
     # Custom validations
     config.autoload_paths += %W["#{config.root}/app/validators/"]
 
+    # Custom libs
+    config.autoload_paths += %W(#{config.root}/lib)
+
     # Sensible info
     Dotenv.load
   end
