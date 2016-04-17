@@ -5,7 +5,7 @@ FactoryGirl.define do
     factory :short_url_https do
       sequence(:url) { |n| "https://thisismyverylongurlnumber#{n}" }
     end
-    
+
     sequence(:slug) { |n| "slug#{n}"}
   end
 end
