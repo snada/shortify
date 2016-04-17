@@ -17,10 +17,10 @@ class Shortcut < ActiveRecord::Base
         candidate = encoded[0...slug_size]
         slug_size += 1
 
-        @match = self.find_by(slug: candidate)
+        match = self.find_by(slug: candidate)
 
-        if @match
-          slug = candidate if @match.url == url
+        if match
+          slug = candidate if match.url == url
         else
           slug = candidate
         end
