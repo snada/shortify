@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-RSpec.describe ShortUrlsController, type: :controller do
+RSpec.describe ShortcutsController, type: :controller do
   describe 'routing' do
     it 'routes to show' do
-      expect(get: '/xyz').to route_to(controller: 'short_urls', action: 'show', slug: 'xyz')
+      expect(get: '/xyz').to route_to(controller: 'shortcuts', action: 'show', slug: 'xyz')
     end
 
     it 'routes to create' do
-      expect(post: '/').to route_to(controller: 'short_urls', action: 'create')
+      expect(post: '/').to route_to(controller: 'shortcuts', action: 'create')
     end
 
     it 'does not route to index' do
@@ -25,8 +25,8 @@ RSpec.describe ShortUrlsController, type: :controller do
   end
 
   describe 'GET show' do
-    it 'redirects to short_url url' do
-      su = FactoryGirl.create(:short_url)
+    it 'redirects to shortcut url' do
+      su = FactoryGirl.create(:shortcut)
       get :show, slug: su.slug
       expect(response).to redirect_to su.url
     end
@@ -37,7 +37,7 @@ RSpec.describe ShortUrlsController, type: :controller do
       expect(response).to have_http_status(:not_found)
       expect(
         JSON.parse(response.body, symbolize_names: true)
-      ).to eq({ errors: [ "Couldn't find a short url with slug #{slug}" ] })
+      ).to eq({ errors: [ "Couldn't find a shortcut with slug #{slug}" ] })
     end
   end
 
@@ -65,28 +65,28 @@ RSpec.describe ShortUrlsController, type: :controller do
     end
 
     context 'slug is provided' do
-      it 'creates a short url with given slug and url' do
+      it 'creates a shortcut with given slug and url' do
         url = 'http://newurl.com'
         slug = 'newslug'
         expect{
           post :create, url: url, slug: slug
-        }.to change{ ShortUrl.count }.by(1)
+        }.to change{ Shortcut.count }.by(1)
 
         expect(response).to have_http_status(:success)
         expect(
           JSON.parse(response.body, symbolize_names: true)
         ).to eq({
           url: url,
-          short_url: short_url_url( ShortUrl.last.slug )
+          shortcut: shortcut_url( Shortcut.last.slug )
         })
       end
 
-      it 'does not create a short url if slug is taken and url is different' do
-        su = FactoryGirl.create(:short_url)
+      it 'does not create a shortcut if slug is taken and url is different' do
+        su = FactoryGirl.create(:shortcut)
 
         expect{
           post :create, url: su.url + '1', slug: su.slug
-        }.to change{ ShortUrl.count }.by(0)
+        }.to change{ Shortcut.count }.by(0)
 
         expect(response).to have_http_status(:conflict)
         expect(
@@ -98,29 +98,29 @@ RSpec.describe ShortUrlsController, type: :controller do
     end
 
     context 'slug is not provided' do
-      it 'creates a short url with given url' do
+      it 'creates a shortcut with given url' do
         url = 'http://lasturl.com'
         expect{
           post :create, url: url
-        }.to change{ ShortUrl.count }.by(1)
+        }.to change{ Shortcut.count }.by(1)
         expect(
           JSON.parse(response.body, symbolize_names: true)
         ).to eq({
           url: url,
-          short_url: short_url_url( ShortUrl.last.slug )
+          shortcut: shortcut_url( Shortcut.last.slug )
         })
       end
 
-      it 'does not create a shorturl if url is taken' do
-        su = FactoryGirl.create(:short_url)
+      it 'does not create a shortcut if url is taken' do
+        su = FactoryGirl.create(:shortcut)
         expect{
           post :create, url: su.url
-        }.not_to change{ ShortUrl.count }
+        }.not_to change{ Shortcut.count }
         expect(
           JSON.parse(response.body, symbolize_names: true)
         ).to eq({
           url: su.url,
-          short_url: short_url_url( ShortUrl.last.slug )
+          shortcut: shortcut_url( Shortcut.last.slug )
         })
       end
     end

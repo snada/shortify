@@ -1,8 +1,8 @@
 FactoryGirl.define do
-  factory :short_url do
+  factory :shortcut do
     sequence(:url) { |n| "http://thisismyverylongurlnumber#{n}" }
 
-    factory :short_url_https do
+    factory :shortcut_https do
       sequence(:url) { |n| "https://thisismyverylongurlnumber#{n}" }
     end
 

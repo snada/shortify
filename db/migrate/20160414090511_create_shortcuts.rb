@@ -1,6 +1,6 @@
-class CreateShortUrls < ActiveRecord::Migration
+class CreateShortcuts < ActiveRecord::Migration
   def change
-    create_table :short_urls do |t|
+    create_table :shortcuts do |t|
       t.string :slug, null: false
       t.string :url, null: false
 

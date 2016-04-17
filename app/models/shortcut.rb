@@ -1,12 +1,12 @@
-class ShortUrl < ActiveRecord::Base
+class Shortcut < ActiveRecord::Base
   validates :url, presence: true, url: true
   validates :slug, presence: true, uniqueness: true
 
   scope :by_shortest_slug, -> { order("LENGTH(slug) ASC") }
 
   def self.slug_for(url)
-    short_url = self.where(url: url).by_shortest_slug.first
-    slug = short_url.slug if short_url
+    shortcut = self.where(url: url).by_shortest_slug.first
+    slug = shortcut.slug if shortcut
 
     if slug.blank?
       encoded = Base62.encode62(Digest::SHA2.hexdigest(url).to_i(16))

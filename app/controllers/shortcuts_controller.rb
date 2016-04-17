@@ -1,26 +1,26 @@
-class ShortUrlsController < ApplicationController
+class ShortcutsController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
   def show
     begin
-      @short_url = ShortUrl.find_by!(slug: params[:slug])
-      redirect_to @short_url.url
+      @shortcut = Shortcut.find_by!(slug: params[:slug])
+      redirect_to @shortcut.url
     rescue ActiveRecord::RecordNotFound => e
-      render_errors([ "Couldn't find a short url with slug #{params[:slug]}" ], :not_found)
+      render_errors([ "Couldn't find a shortcut with slug #{params[:slug]}" ], :not_found)
     end
   end
 
   def create
     begin
-      url = UrlCleaner.clean(short_url_params[:url])
-      slug = short_url_params[:slug]
-      slug ||= ShortUrl.slug_for(url)
+      url = UrlCleaner.clean(shortcut_params[:url])
+      slug = shortcut_params[:slug]
+      slug ||= Shortcut.slug_for(url)
 
-      @short_url = ShortUrl.find_or_create_by!(url: url, slug: slug)
+      @shortcut = Shortcut.find_or_create_by!(url: url, slug: slug)
 
       render json: {
-        url: @short_url.url,
-        short_url: short_url_url(@short_url.slug)
+        url: @shortcut.url,
+        shortcut: shortcut_url(@shortcut.slug)
       }
     rescue URI::InvalidURIError, ActionController::ParameterMissing => e
       render_errors([ e.message ], :unprocessable_entity)
@@ -30,7 +30,7 @@ class ShortUrlsController < ApplicationController
   end
 
   private
-    def short_url_params
+    def shortcut_params
       params.require(:url)
       params.permit(:slug, :url)
     end
