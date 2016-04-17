@@ -1,4 +1,5 @@
-# Duosexagesimal numeral system: 0-9 + A-Z + a-z
+# No standard found (?), preferring 0-9 + A-Z + a-z
+# according to duosexagesimal numeral system mentioned in:
 # https://en.wikipedia.org/wiki/List_of_numeral_systems
 class Base62
   DIGITS = ('0'..'9').to_a + ('A'..'Z').to_a + ('a'..'z').to_a
