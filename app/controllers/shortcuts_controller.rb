@@ -1,6 +1,13 @@
 class ShortcutsController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
+  def index
+    render json: {
+      name: Shortify.name,
+      version: Shortify::VERSION
+    }
+  end
+
   def show
     begin
       @shortcut = Shortcut.find_by!(slug: params[:slug])
