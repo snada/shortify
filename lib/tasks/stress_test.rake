@@ -16,7 +16,7 @@ namespace :stress_test do
     (1..args[:size].to_i).each {|n|
       protocol = ['', 'http://', 'https://'].sample
       name = ('a'..'z').to_a.sample(rand(3..15)).join
-      tld = ['it', 'com', 'org', 'fr', 'es', 'ca', 'biz', 'gov', 'net', '.us'].sample
+      tld = ['it', 'com', 'org', 'fr', 'es', 'ca', 'biz', 'gov', 'net', 'us'].sample
 
       url = "#{protocol}#{name}.#{tld}"
 
