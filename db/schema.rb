@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160414090511) do
+ActiveRecord::Schema.define(version: 20160418102339) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,5 +22,8 @@ ActiveRecord::Schema.define(version: 20160414090511) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "shortcuts", ["slug"], name: "index_shortcuts_on_slug", using: :btree
+  add_index "shortcuts", ["url"], name: "index_shortcuts_on_url", using: :btree
 
 end

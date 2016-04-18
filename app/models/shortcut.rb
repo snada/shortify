@@ -13,26 +13,17 @@ class Shortcut < ActiveRecord::Base
 
     if slug.blank?
       encoded = Base62.encode62(Digest::SHA2.hexdigest(url).to_i(16))
-      slug_size = 1
-      candidate = ""
 
-      loop do
-        candidate = encoded[0...slug_size]
-        slug_size += 1
-
-        match = self.find_by(slug: candidate)
-
-        if match
-          slug = candidate if match.url == url
-        else
-          slug = candidate
-        end
-
-        break if slug
+      substrings = encoded.split('').inject([]) do |subs, char|
+        subs << subs.last.to_s + char
       end
+
+      max_len = Shortcut.select('MAX(LENGTH(slug)) AS max_len').where(slug: substrings).order('max_len').first['max_len']
+      length = max_len ? max_len + 1 : 1
+
+      slug = encoded[0...length]
     end
 
-    slug
+    return slug
   end
-
 end

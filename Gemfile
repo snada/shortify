@@ -26,6 +26,12 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Manage sensible information, development only
 gem 'dotenv-rails'
 
+# Deploy
+gem 'capistrano', '~> 3.4.0'
+gem 'capistrano-rails', '~> 1.1.5'
+gem 'capistrano-rvm'
+gem 'capistrano-passenger'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

@@ -2,16 +2,16 @@ require 'rails_helper'
 
 RSpec.describe ShortcutsController, type: :controller do
   describe 'routing' do
+    it 'routes to index' do
+      expect(get: '/').to route_to(controller: 'shortcuts', action: 'index')
+    end
+
     it 'routes to show' do
       expect(get: '/xyz').to route_to(controller: 'shortcuts', action: 'show', slug: 'xyz')
     end
 
     it 'routes to create' do
       expect(post: '/').to route_to(controller: 'shortcuts', action: 'create')
-    end
-
-    it 'does not route to index' do
-      expect(get: '/').not_to be_routable
     end
 
     it 'does not route to destroy' do
@@ -21,6 +21,18 @@ RSpec.describe ShortcutsController, type: :controller do
     it 'does not route to update' do
       expect(patch: '/xyz').not_to be_routable
       expect(put: 'xyz').not_to be_routable
+    end
+  end
+
+  describe 'GET index' do
+    it 'should render a simple json with app name and version' do
+      get :index
+      expect(JSON.parse(response.body, symbolize_names: true)).to eq(
+        {
+          name: Shortify.name,
+          version: Shortify::VERSION
+        }
+      )
     end
   end
 
@@ -102,6 +114,19 @@ RSpec.describe ShortcutsController, type: :controller do
         url = 'http://lasturl.com'
         expect{
           post :create, url: url
+        }.to change{ Shortcut.count }.by(1)
+        expect(
+          JSON.parse(response.body, symbolize_names: true)
+        ).to eq({
+          url: url,
+          shortcut: shortcut_url( Shortcut.last.slug )
+        })
+      end
+
+      it 'creates a shortcut with given url when slug is blank' do
+        url = 'http://verylasturl.com'
+        expect{
+          post :create, url: url, slug: ''
         }.to change{ Shortcut.count }.by(1)
         expect(
           JSON.parse(response.body, symbolize_names: true)
