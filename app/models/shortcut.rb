@@ -3,7 +3,6 @@ class Shortcut < ActiveRecord::Base
   validates :slug, presence: true, uniqueness: true
 
   scope :by_shortest_slug, -> { order("LENGTH(slug) ASC") }
-  scope :by_longest_slug, -> { order("LENGTH(slug) DESC") }
 
   def self.slug_for(url)
     shortcut = self.where(url: url).by_shortest_slug.first
@@ -16,13 +15,12 @@ class Shortcut < ActiveRecord::Base
         subs << subs.last.to_s + char
       end
 
-
-      shortcut = Shortcut.where(slug: substrings).by_longest_slug.first
-      length = shortcut ? (shortcut.slug.length + 1) : 1
+      max_len = Shortcut.select('MAX(LENGTH(slug)) AS max_len').where(slug: substrings).order('max_len').first['max_len']
+      length = max_len ? max_len + 1 : 1
 
       slug = encoded[0...length]
     end
 
-    slug
+    return slug
   end
 end
