@@ -1,6 +1,9 @@
 class Shortcut < ActiveRecord::Base
   validates :url, presence: true, url: true
-  validates :slug, presence: true, uniqueness: true
+  validates :slug, presence: true, uniqueness: true, format: {
+    with: /[0-9A-Za-z]/,
+    message: "only accepts 0-9 digits and letters."
+  }
 
   scope :by_shortest_slug, -> { order("LENGTH(slug) ASC") }
 
