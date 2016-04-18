@@ -111,6 +111,19 @@ RSpec.describe ShortcutsController, type: :controller do
         })
       end
 
+      it 'creates a shortcut with given url when slug is blank' do
+        url = 'http://verylasturl.com'
+        expect{
+          post :create, url: url, slug: ''
+        }.to change{ Shortcut.count }.by(1)
+        expect(
+          JSON.parse(response.body, symbolize_names: true)
+        ).to eq({
+          url: url,
+          shortcut: shortcut_url( Shortcut.last.slug )
+        })
+      end
+
       it 'does not create a shortcut if url is taken' do
         su = FactoryGirl.create(:shortcut)
         expect{

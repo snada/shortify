@@ -14,7 +14,7 @@ class ShortcutsController < ApplicationController
     begin
       url = UrlCleaner.clean(shortcut_params[:url])
       slug = shortcut_params[:slug]
-      slug ||= Shortcut.slug_for(url)
+      slug = Shortcut.slug_for(url) if slug.blank?
 
       @shortcut = Shortcut.find_or_create_by!(url: url, slug: slug)
 
