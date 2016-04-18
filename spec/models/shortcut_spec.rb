@@ -64,6 +64,12 @@ RSpec.describe Shortcut, type: :model do
       expect{ FactoryGirl.create(:shortcut, slug: su.slug) }.to raise_exception ActiveRecord::RecordInvalid
     end
 
+    it 'fails when slug is not base62' do
+      (Base62::DIGITS - ('0'..'z').to_a).each do |symbol|
+        expect{ FactoryGirl.create(:shortcut, slug: symbol) }.to raise_exception ActiveRecord::RecordInvalid
+      end
+    end
+
     it 'fails with generic protocol' do
       expect{ FactoryGirl.create(:shortcut, url: 'shopify.com') }.to raise_exception ActiveRecord::RecordInvalid
     end
