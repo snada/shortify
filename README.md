@@ -150,6 +150,10 @@ One of the best ways of documenting the code is by writing good tests. In the `s
 
 ## <a name="releases"></a> Releases
 
+### 1.0.0
+
+- Bug fixing, version, root
+
 ### 0.0.2-beta
 
 - Fixed slug validation with base62 chars
