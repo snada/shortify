@@ -12,6 +12,17 @@ RSpec.describe Shortcut, type: :model do
         ).to eq(['short', 'very_long_slug'])
       end
     end
+
+    context 'longest_slug' do
+      it 'orders by longest slug' do
+        url = 'http://shopify.com'
+        FactoryGirl.create(:shortcut, url: url, slug: 'very_long_slug')
+        FactoryGirl.create(:shortcut, url: url, slug: 'short')
+        expect(
+          Shortcut.where(url: url).by_longest_slug.map { |su| su.slug }
+        ).to eq(['very_long_slug', 'short'])
+      end
+    end
   end
 
   describe 'class method' do

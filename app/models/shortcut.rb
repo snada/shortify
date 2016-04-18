@@ -3,6 +3,7 @@ class Shortcut < ActiveRecord::Base
   validates :slug, presence: true, uniqueness: true
 
   scope :by_shortest_slug, -> { order("LENGTH(slug) ASC") }
+  scope :by_longest_slug, -> { order("LENGTH(slug) DESC") }
 
   def self.slug_for(url)
     shortcut = self.where(url: url).by_shortest_slug.first
@@ -10,26 +11,18 @@ class Shortcut < ActiveRecord::Base
 
     if slug.blank?
       encoded = Base62.encode62(Digest::SHA2.hexdigest(url).to_i(16))
-      slug_size = 1
-      candidate = ""
 
-      loop do
-        candidate = encoded[0...slug_size]
-        slug_size += 1
-
-        match = self.find_by(slug: candidate)
-
-        if match
-          slug = candidate if match.url == url
-        else
-          slug = candidate
-        end
-
-        break if slug
+      substrings = encoded.split('').inject([]) do |subs, char|
+        subs << subs.last.to_s + char
       end
+
+
+      shortcut = Shortcut.where(slug: substrings).by_longest_slug.first
+      length = shortcut ? (shortcut.slug.length + 1) : 1
+
+      slug = encoded[0...length]
     end
 
     slug
   end
-
 end
