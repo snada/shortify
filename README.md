@@ -1,3 +1,5 @@
+![Shortify](shortify.png)
+
 # Shortify
 
 - [Description](#description)
@@ -125,6 +127,8 @@ Once the token is generated, the system will then use as a new slug the shortest
 SHA2 was chosen because of it's collision resistance and fairly long outputs. Also, the avalanche effect allows us to generate very different slugs for near-close urls keeping the average slug length the shortest possible.
 
 Base62 was chosen instead a url-safe variant of Base64 to completely avoid the presence of special characters in urls. This slightly decreases the number of possible combinations, but keeps the readability of the generated urls very high.
+
+Indexes are provided on the database: the b-tree data-structure used by PostgreSQL ensure that the substring query (almost like a reverse-index search) gets executed the fastest way possible.
 
 It's my habit, when possible, to never use the `id` attribute of a record to generate public-exposed informations, to release as little information as possible on the internal system structure and procedures.
 
