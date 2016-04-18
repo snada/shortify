@@ -8,7 +8,7 @@ require 'rails/all'
 Bundler.require(*Rails.groups)
 
 module Shortify
-  VERSION = '0.0.2-beta'
+  VERSION = '1.0.0'
 
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
