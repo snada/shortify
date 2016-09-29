@@ -2,6 +2,8 @@
 
 # Shortify
 
+[![Build Status](https://travis-ci.org/snada/shortify.svg?branch=master)](https://travis-ci.org/snada/shortify)
+
 - [Description](#description)
 - [Install and launch](#install)
 - [Test](#test)
