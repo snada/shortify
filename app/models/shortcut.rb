@@ -1,7 +1,7 @@
 class Shortcut < ActiveRecord::Base
   validates :url, presence: true, url: true
   validates :slug, presence: true, uniqueness: true, format: {
-    with: /[0-9A-Za-z]/,
+    with: /\A[0-9A-Za-z]*\z/,
     message: "only accepts 0-9 digits and letters."
   }
 

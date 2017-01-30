@@ -2,7 +2,7 @@ require 'net/http'
 
 namespace :stress_test do
   desc "Stress tests the app by generating random urls and creating shortcuts calling the create action. Needs server on. Default is 100 urls."
-  task :launch, [:size] => [:environment] do |t, args|
+  task :launch, [:size] => [:environment] do |_t, args|
     if Rails.env == 'production'
       puts "This task is unsafe in production." and return
     end
