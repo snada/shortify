@@ -8,6 +8,7 @@ before_script:
   - cp config/database.yml.travis config/database.yml
 addons:
   code_climate:
-    repo_token: 852db338019dff4371c9ef5295d17e1b0b54db7eadd09029609cc2c162d0f54b
+    repo_token:
+      secure: "dPUal+v/6cvWdyOql2kq8ms5/H6EoNAg1MtL08jcjuHB4FuIb5D3ncxipY3iMEwYn1KvLsD2KbtUEH40lkH1BYHTaULrduSJxhBqJZHy8DXHxAwJB1w44nGrcR+qx/8QtJGnSZF87eBC9YTXKC910vy7+/umdZ0QRzUcgVCansqbnaaqCEQS+BjAfI0rcTm8DpEByTRd4+mJAshH8AEwCK8bEfQQxi3SZFL2+7wrPHzdxIJ0vWGEZnHenKNfD/b7k4TnWM+wTRUYwl2BD8VZDmewQ4A6xMxAUOfxIcwoTGGVKuzFvUNr8TRQdQkkdbD5kd+nW6U+ha5idLiqcmRLpygGztNKWFuiaiHsoDUGewHMq40X80TBCCNFugm0AKlBcKAo9Qm4I5KD9Y3vm/eZdXAOUHdAN9T1RZkhgGjk67OVRzhxIi1lU8EKPN9ENz2eTdRNm1F/h17H9UU0gNCYsaJ6JfIm9ghh/xt5pKQISq0QiPZM6x1KHd5iU4qzd9OnYbPbw4hr88xSmQ7HIHf0IOFBEYjf4Mu8BNQcv8+Q6t6K0qGl6f2+7HCd/5zB9aQsNFvYaq25Hf0k0InB73EvsDd9RlvmqVxeJrA9IpJ7E8i8Fd5qxk7J/81I/AwQGzQpEp4P8CohupOvapy0SA9z4fh7fog/PDZgwwJxDMG55po="
 after_success:
   - bundle exec codeclimate-test-reporter

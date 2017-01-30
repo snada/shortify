@@ -27,7 +27,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'dotenv-rails'
 
 # Deploy
-gem 'capistrano', '~> 3.4.0'
+gem 'capistrano', '~> 3.4.1'
 gem 'capistrano-rails', '~> 1.1.5'
 gem 'capistrano-rvm'
 gem 'capistrano-passenger'
