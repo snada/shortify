@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.5.1'
+gem 'rails', '4.2.7.1'
 # Use PostgreSQL as the database for Active Record
 gem 'pg', '~> 0.18'
 # Use SCSS for stylesheets
@@ -61,4 +61,5 @@ end
 
 group :test do
   gem 'simplecov'
+  gem "codeclimate-test-reporter", "~> 1.0.0"
 end
