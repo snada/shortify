@@ -5,7 +5,7 @@ class UrlValidator < ActiveModel::EachValidator
       unless uri.kind_of?(URI::HTTP) || uri.kind_of?(URI::HTTPS)
         record.errors[attribute] << (options[:message] || "uses an unsupported protocol")
       end
-    rescue URI::InvalidURIError => e
+    rescue URI::InvalidURIError
       record.errors[attribute] << (options[:message] || "is not a valid uri")
     end
   end

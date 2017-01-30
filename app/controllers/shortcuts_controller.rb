@@ -12,7 +12,7 @@ class ShortcutsController < ApplicationController
     begin
       @shortcut = Shortcut.find_by!(slug: params[:slug])
       redirect_to @shortcut.url
-    rescue ActiveRecord::RecordNotFound => e
+    rescue ActiveRecord::RecordNotFound
       render_errors([ "Couldn't find a shortcut with slug #{params[:slug]}" ], :not_found)
     end
   end

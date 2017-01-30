@@ -5,11 +5,11 @@ RSpec.describe Shortcut, type: :model do
     context 'shortest_slug' do
       it 'orders by shortest slug' do
         url = 'http://shopify.com'
-        FactoryGirl.create(:shortcut, url: url, slug: 'very_long_slug')
+        FactoryGirl.create(:shortcut, url: url, slug: 'veryLongSlug')
         FactoryGirl.create(:shortcut, url: url, slug: 'short')
         expect(
           Shortcut.where(url: url).by_shortest_slug.map { |su| su.slug }
-        ).to eq(['short', 'very_long_slug'])
+        ).to eq(['short', 'veryLongSlug'])
       end
     end
   end
@@ -65,7 +65,7 @@ RSpec.describe Shortcut, type: :model do
     end
 
     it 'fails when slug is not base62' do
-      (Base62::DIGITS - ('0'..'z').to_a).each do |symbol|
+      (('0'..'z').to_a - Base62::DIGITS).each do |symbol|
         expect{ FactoryGirl.create(:shortcut, slug: symbol) }.to raise_exception ActiveRecord::RecordInvalid
       end
     end
