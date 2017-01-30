@@ -1,5 +1,0 @@
-engines:
-  brakeman:
-    enabled: true
-    exclude_fingerprints:
-    - 1a4870d8e8fb5d32344e1c98c57e04eb1b6cc4707af4fcf2aa1ce7c7ad9dbe32
