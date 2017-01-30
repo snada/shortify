@@ -2,7 +2,7 @@
 
 # Shortify
 
-[![Build Status](https://travis-ci.org/snada/shortify.svg?branch=master)](https://travis-ci.org/snada/shortify)
+[![Build Status](https://travis-ci.org/snada/shortify.svg?branch=master)](https://travis-ci.org/snada/shortify) [![Code Climate](https://codeclimate.com/github/snada/shortify/badges/gpa.svg)](https://codeclimate.com/github/snada/shortify) [![Test Coverage](https://codeclimate.com/github/snada/shortify/badges/coverage.svg)](https://codeclimate.com/github/snada/shortify/coverage) [![Issue Count](https://codeclimate.com/github/snada/shortify/badges/issue_count.svg)](https://codeclimate.com/github/snada/shortify)
 
 - [Description](#description)
 - [Install and launch](#install)
@@ -151,6 +151,10 @@ I mainly focused on keeping all of the logic in the right place:
 One of the best ways of documenting the code is by writing good tests. In the `spec` directory you'll find the best documentation to learn of this app.
 
 ## <a name="releases"></a> Releases
+
+### 1.0.4
+
+- Updating Rails and adding Codeclimate support
 
 ### 1.0.1 - 1.0.2 - 1.0.3
 
