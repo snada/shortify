@@ -6,3 +6,8 @@ services:
 before_script:
   - psql -c 'create database shortify_test;' -U postgres
   - cp config/database.yml.travis config/database.yml
+addons:
+  code_climate:
+    repo_token: 852db338019dff4371c9ef5295d17e1b0b54db7eadd09029609cc2c162d0f54b
+after_success:
+  - bundle exec codeclimate-test-reporter
